@@ -1,0 +1,7 @@
+path: /Users/dominik.bilski/ml-auto-store/dataset
+train: images
+val: images
+
+#Classes
+names:
+  0: barcode
