@@ -10,7 +10,7 @@ from torch.utils.data import random_split, DataLoader
 from neural_network import NeuralNetwork
 batch_size = 64
 learning_rate = 1e-3
-epochs = 300
+epochs = 100
 
 
 def train_loop(dataloader, model, loss_function, optimizer, device):
@@ -90,5 +90,5 @@ if __name__ == '__main__':
         testing_loop(test_dataloader, model, loss_function, device)
 
     print('Done!')
-
-
+    print("Saving the model...")
+    torch.save(model, 'model.pth')

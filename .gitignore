@@ -162,3 +162,6 @@ auto-store/
 yolov8m.pt
 
 dataset/rotation
+
+model.pth
+.DS_Store
