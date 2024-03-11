@@ -15,7 +15,7 @@ def detect_barcode(path, model, fileNumber):
     for index, (_class, bounding_box, confidence) in enumerate(zip(classes, bounding_box_frames, confidences)):
         x, y, x2, y2 = bounding_box
         cropped_image = image[y:y2, x:x2]
-        output_filename = f"detected_barcodes/DetectedBarcode_{fileNumber}_confidence_{confidence:.2f}_{index}.jpg"
+        output_filename = f"detected_barcodes/DetectedBarcode_{fileNumber:03}_confidence_{confidence:.2f}_{index}.jpg"
         cv2.imwrite(output_filename, cropped_image)
         print(f"Saved: {output_filename}")
 
