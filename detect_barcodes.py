@@ -12,10 +12,21 @@ def detect_barcode(path, model, fileNumber):
     bounding_box_frames = np.array(bounding_boxes.xyxy.cpu(), dtype="int")
     classes = np.array(bounding_boxes.cls.cpu(), dtype="int")
     confidences = np.array(bounding_boxes.conf.cpu().numpy())
+
+    max_confidence = 0
+    best_bbox = None
+    best_index = None
+
     for index, (_class, bounding_box, confidence) in enumerate(zip(classes, bounding_box_frames, confidences)):
-        x, y, x2, y2 = bounding_box
+        if confidence > max_confidence:
+            max_confidence = confidence
+            best_bbox = bounding_box
+            best_index = index
+
+    if best_bbox is not None:
+        x, y, x2, y2 = best_bbox
         cropped_image = image[y:y2, x:x2]
-        output_filename = f"detected_barcodes/DetectedBarcode_{fileNumber:03}_confidence_{confidence:.2f}_{index}.jpg"
+        output_filename = f"detected_barcodes/tmp/DetectedBarcode_{fileNumber:03}_confidence_{max_confidence:.2f}_{best_index}.jpg"
         cv2.imwrite(output_filename, cropped_image)
         print(f"Saved: {output_filename}")
 
