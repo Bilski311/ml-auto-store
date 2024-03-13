@@ -3,28 +3,9 @@ import os
 import argparse
 
 from bounding_box import BoundingBox
-from annotations import parse_annotation_file, rotate_annotation_90_left
-
-
-def show_image_with_annotation(name, _class, frame, bounding_box):
-    display_frame = frame.copy()
-    cv2.rectangle(display_frame,
-                  (bounding_box.top_left_corner.x, bounding_box.top_left_corner.y),
-                  (bounding_box.bottom_right_corner.x, bounding_box.bottom_right_corner.y),
-                  (255, 0, 0), 2)
-    cv2.putText(display_frame, str(_class), (bounding_box.top_left_corner.x, bounding_box.top_left_corner.y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-    cv2.imshow(name, display_frame)
-    return cv2.waitKey(0)
-
-
-def rotate_image(number_of_rotations, bounding_box, frame, _class):
-    new_bounding_box = bounding_box
-    new_frame = frame
-    for _ in range(number_of_rotations):
-        new_bounding_box = rotate_annotation_90_left(new_bounding_box, new_frame.shape[1])
-        new_frame = cv2.rotate(new_frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
-
-    return new_frame, new_bounding_box
+from annotations import parse_annotation_file
+from image_display import show_image_with_annotation
+from image_rotation import rotate_image
 
 
 def get_action_based_on_key(key):
