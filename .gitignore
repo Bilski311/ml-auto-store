@@ -172,6 +172,7 @@ data_preprocessing/manually_rotated_images/images/
 data_preprocessing/manually_rotated_images/labels/
 data_preprocessing/manually_rotated_images_backup/images
 data_preprocessing/manually_rotated_images_backup/labels
+data_preprocessing/augmented_data
 dataset/labels_rotated_backup/
 dataset/images_rotated_backup/
 dataset/labels_before_processing_backup/
