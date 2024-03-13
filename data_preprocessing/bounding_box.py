@@ -27,3 +27,13 @@ class BoundingBox:
         x_center = top_left.x + width / 2
         y_center = top_left.y + height / 2
         return cls(x_center, y_center, width, height)
+
+    @classmethod
+    def from_normalized_coordinates(cls, normalized_coordinates, frame):
+        x_center, y_center, width, height = normalized_coordinates
+        x_center *= frame.shape[1]
+        y_center *= frame.shape[0]
+        width *= frame.shape[1]
+        height *= frame.shape[0]
+
+        return cls(x_center, y_center, width, height)
