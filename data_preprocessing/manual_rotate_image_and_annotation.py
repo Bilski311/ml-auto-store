@@ -6,6 +6,7 @@ from bounding_box import BoundingBox
 from annotations import parse_annotation_file
 from image_display import show_image_with_annotation
 from image_rotation import rotate_image
+from image_io import save_image
 
 
 def get_action_based_on_key(key):
@@ -21,14 +22,6 @@ def get_action_based_on_key(key):
         return 'GO_TO_IMAGE'
     elif key == 27:
         return 'EXIT_PROGRAM'
-
-
-def save_image(file_name, frame, bounding_box, _class, destination_paths):
-    cv2.imwrite(destination_paths['image'] + file_name + ".jpg", frame)
-    x_center_norm, y_center_norm, width_norm, height_norm = bounding_box.normalize(frame.shape[1],
-                                                                                       frame.shape[0])
-    with open(destination_paths['annotation'] + file_name + ".txt", 'w') as file:
-        file.write(f"{_class} {x_center_norm} {y_center_norm} {width_norm} {height_norm}\n")
 
 
 def rotate_images(image_files, source_paths, destination_paths):

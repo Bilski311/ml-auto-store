@@ -32,6 +32,7 @@ def show_dataset(image_files, main_directory):
         if key == 27:
             break
 
-main_directory = "new_dataset"
+
+main_directory = "augmented_data"
 image_files = sorted([f for f in os.listdir(main_directory + "/images") if f.endswith('.jpg')])
 show_dataset(image_files, main_directory)

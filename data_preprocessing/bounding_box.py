@@ -1,4 +1,6 @@
 from coordinate import Coordinate
+
+
 class BoundingBox:
     def __init__(self, x_center=None, y_center=None, width=None, height=None):
         if x_center and y_center and width and height:

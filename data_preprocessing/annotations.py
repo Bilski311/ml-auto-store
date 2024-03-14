@@ -3,4 +3,3 @@ def parse_annotation_file(file_path):
         lines = file.readlines()
         annotations = [list(map(float, line.split())) for line in lines]
     return annotations
-
