@@ -33,6 +33,6 @@ def show_dataset(image_files, main_directory):
             break
 
 
-main_directory = "augmented_data"
+main_directory = "../dataset"
 image_files = sorted([f for f in os.listdir(main_directory + "/images") if f.endswith('.jpg')])
 show_dataset(image_files, main_directory)
