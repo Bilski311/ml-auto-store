@@ -2,12 +2,8 @@ import cv2
 import numpy as np
 from ultralytics import YOLO
 import os
-import shutil
 
-def clear_directory(directory):
-    if os.path.exists(directory):
-        shutil.rmtree(directory)
-    os.makedirs(directory, exist_ok=True)
+from utils.utils import clear_directory
 
 
 def detect_barcode(path, model, fileNumber, output_directory):
@@ -31,7 +27,7 @@ def detect_barcode(path, model, fileNumber, output_directory):
     if best_bbox is not None:
         x, y, x2, y2 = best_bbox
         cropped_image = image[y:y2, x:x2]
-        output_filename = f"{output_directory}/DetectedBarcode_{fileNumber:03}_confidence_{max_confidence:.2f}_{best_index}.jpg"
+        output_filename = f"{output_directory}/DetectedBarcode_{fileNumber:04}_confidence_{max_confidence:.2f}_{best_index}.jpg"
         cv2.imwrite(output_filename, cropped_image)
         print(f"Saved: {output_filename}")
 
@@ -68,8 +64,10 @@ def check_and_fix_missing_files(directory, total_files):
 
 # Load a model
 model = YOLO("/Users/dominik.bilski/ml-auto-store/runs/detect/train22/weights/best.pt")  # load a pretrained model (recommended for training)
-directory_path = 'dataset/images'
-output_directory = 'detected_barcodes/tmp'
+# directory_path = 'dataset/images'
+# output_directory = 'detected_barcodes/tmp'
+directory_path = 'dataset/validation/images'
+output_directory = 'rotation_network/validation/images'
 clear_directory(output_directory)
 scan_directory_for_jpgs(directory_path, model, output_directory)
 total_files = len([name for name in os.listdir(directory_path) if name.endswith('.jpg')])

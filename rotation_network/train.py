@@ -10,7 +10,7 @@ from torch.utils.data import random_split, DataLoader
 from neural_network import NeuralNetwork
 batch_size = 64
 learning_rate = 1e-3
-epochs = 100
+epochs = 40
 
 
 def train_loop(dataloader, model, loss_function, optimizer, device):
@@ -34,7 +34,7 @@ def train_loop(dataloader, model, loss_function, optimizer, device):
 def is_last_batch(batch, dataloader):
     return batch == len(dataloader) - 1
 
-def testing_loop(dataloader, model, loss_function, device):
+def validation_loop(dataloader, model, loss_function, device):
     model.eval()
     size = len(dataloader.dataset)
     number_of_batches = len(dataloader)
@@ -87,7 +87,7 @@ if __name__ == '__main__':
     for epoch in range(1, epochs + 1):
         print(f'Epoch: {epoch}')
         train_loop(train_dataloader, model, loss_function, optimizer, device)
-        testing_loop(test_dataloader, model, loss_function, device)
+        validation_loop(test_dataloader, model, loss_function, device)
 
     print('Done!')
     print("Saving the model...")
