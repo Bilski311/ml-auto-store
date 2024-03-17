@@ -10,7 +10,7 @@ from torch.utils.data import random_split, DataLoader
 from neural_network import NeuralNetwork
 batch_size = 64
 learning_rate = 1e-3
-epochs = 40
+epochs = 20
 
 
 def train_loop(dataloader, model, loss_function, optimizer, device):
@@ -56,8 +56,8 @@ def validation_loop(dataloader, model, loss_function, device):
 if __name__ == '__main__':
     script_dir = os.path.dirname(os.path.abspath(__file__))
     print(script_dir)
-    annotations_file = os.path.join(script_dir, '../detected_barcodes/annotation/annotations.csv')
-    img_dir = os.path.join(script_dir, '../detected_barcodes/img')
+    annotations_file = os.path.join(script_dir, 'dataset/labels/annotations.csv')
+    img_dir = os.path.join(script_dir, 'dataset/images')
 
     if torch.cuda.is_available():
         device = torch.device("cuda")
@@ -74,8 +74,9 @@ if __name__ == '__main__':
     )
     torch.manual_seed(42)
     dataset_size = len(dataset)
-    print(int(dataset_size * 0.8))
-    train_data, test_data = random_split(dataset, [int(dataset_size * 0.8), int(dataset_size * 0.2) + 1])
+    train_dataset_size = int(dataset_size * 0.8)
+    test_dataset_size = dataset_size - train_dataset_size
+    train_data, test_data = random_split(dataset, [train_dataset_size, test_dataset_size])
     print(f'Training data size: {len(train_data)}')
     print(f'Test data size: {len(test_data)}')
     train_dataloader = DataLoader(train_data, batch_size=batch_size)
@@ -91,4 +92,4 @@ if __name__ == '__main__':
 
     print('Done!')
     print("Saving the model...")
-    torch.save(model, 'model.pth')
+    torch.save(model.state_dict(), 'model_state_dict.pth')

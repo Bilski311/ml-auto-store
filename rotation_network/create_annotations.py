@@ -5,9 +5,9 @@ import math
 from utils.utils import clear_directory, copy_files
 
 if __name__ == '__main__':
-    tmp_directory = "../detected_barcodes/tmp"
-    img_directory = "../detected_barcodes/img"
-    annotations_directory = "../detected_barcodes/annotation"
+    tmp_directory = "dataset/tmp"
+    img_directory = "dataset/images"
+    annotations_directory = "dataset/labels"
     clear_directory(img_directory)
     clear_directory(annotations_directory)
     copy_files(tmp_directory, img_directory)

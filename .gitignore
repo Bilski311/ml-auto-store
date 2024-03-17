@@ -183,3 +183,5 @@ dataset/labels/
 dataset/original/
 dataset/labels.cache
 runs/
+
+rotation_network/model_state_dict.pth

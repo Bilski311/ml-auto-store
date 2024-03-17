@@ -11,7 +11,7 @@ def read_barcode(index, image):
     if codes:
         print(f"Detected Barcodes in image {index}: {codes}")
 
-def show_dataset(path, model):
+def detect_on_image(path, model):
     image = cv2.imread(path)
     detection_result = model(image)[0]
     bounding_boxes = detection_result.boxes
@@ -32,7 +32,7 @@ def show_dataset(path, model):
 
 # Load a model
 model = YOLO("/Users/dominik.bilski/ml-auto-store/runs/detect/train22/weights/best.pt")  # load a pretrained model (recommended for training)
-show_dataset("test_image.jpg", model)
-for image_number in range(1, 5):
-    show_dataset(f'coke_can{image_number}.jpg', model)
+detect_on_image("test_image_multiple.jpg", model)
+# for image_number in range(1, 5):
+#     show_dataset(f'test_image_multiple.jpg', model)
 cv2.destroyAllWindows()
