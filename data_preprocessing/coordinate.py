@@ -1,4 +1,7 @@
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
 class Coordinate:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+    x: float
+    y: float
