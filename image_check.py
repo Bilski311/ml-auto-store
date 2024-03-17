@@ -23,9 +23,6 @@ def show_dataset(path, model):
         cropped_image = image[y:y2, x:x2]
         read_barcode(index, cropped_image)
         read_barcode(index, image)
-        output_filename = f"output_class_{_class}_confidence_{confidence:.2f}_{index}.jpg"
-        cv2.imwrite(output_filename, cropped_image)
-        print(f"Saved: {output_filename}")
         cv2.rectangle(image, (x, y), (x2, y2), (255, 0, 0), 2)
         cv2.putText(image, str(_class), (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
         cv2.putText(image, str(confidence), (x, y2 - 5), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
@@ -33,6 +30,8 @@ def show_dataset(path, model):
     cv2.waitKey(0)
 
 # Load a model
-model = YOLO("/Users/dominik.bilski/ml-auto-store/runs/detect/train20/weights/best.pt")  # load a pretrained model (recommended for training)
-show_dataset("test_image6.jpg", model)
+model = YOLO("/Users/dominik.bilski/ml-auto-store/runs/detect/train22/weights/best.pt")  # load a pretrained model (recommended for training)
+show_dataset("test_image.jpg", model)
+for image_number in range(1, 5):
+    show_dataset(f'coke_can{image_number}.jpg', model)
 cv2.destroyAllWindows()

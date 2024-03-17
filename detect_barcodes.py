@@ -2,7 +2,12 @@ import cv2
 import numpy as np
 from ultralytics import YOLO
 import os
+import shutil
 
+def clear_directory(directory):
+    if os.path.exists(directory):
+        shutil.rmtree(directory)
+    os.makedirs(directory, exist_ok=True)
 
 
 def detect_barcode(path, model, fileNumber, output_directory):
@@ -62,9 +67,10 @@ def check_and_fix_missing_files(directory, total_files):
 
 
 # Load a model
-model = YOLO("/Users/dominik.bilski/ml-auto-store/runs/detect/train3/weights/best.pt")  # load a pretrained model (recommended for training)
+model = YOLO("/Users/dominik.bilski/ml-auto-store/runs/detect/train22/weights/best.pt")  # load a pretrained model (recommended for training)
 directory_path = 'dataset/images'
 output_directory = 'detected_barcodes/tmp'
+clear_directory(output_directory)
 scan_directory_for_jpgs(directory_path, model, output_directory)
 total_files = len([name for name in os.listdir(directory_path) if name.endswith('.jpg')])
 check_and_fix_missing_files(output_directory, total_files)
