@@ -29,6 +29,7 @@ def show_dataset(path, model):
     cv2.imshow("frame", image)
     cv2.waitKey(0)
 
+
 # Load a model
 model = YOLO("/Users/dominik.bilski/ml-auto-store/runs/detect/train22/weights/best.pt")  # load a pretrained model (recommended for training)
 show_dataset("test_image.jpg", model)
