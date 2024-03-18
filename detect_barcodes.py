@@ -66,8 +66,10 @@ def check_and_fix_missing_files(directory, total_files):
 model = YOLO("/Users/dominik.bilski/ml-auto-store/runs/detect/train22/weights/best.pt")  # load a pretrained model (recommended for training)
 # directory_path = 'dataset/images'
 # output_directory = 'detected_barcodes/img'
-directory_path = 'dataset/validation/images'
-output_directory = 'rotation_network/validation/images'
+# directory_path = 'dataset/validation/images'
+# output_directory = 'rotation_network/validation/images'
+output_directory = 'dataset/images_cropped_to_barcodes'
+directory_path = 'data_preprocessing/manually_rotated_images/images'
 clear_directory(output_directory)
 scan_directory_for_jpgs(directory_path, model, output_directory)
 total_files = len([name for name in os.listdir(directory_path) if name.endswith('.jpg')])

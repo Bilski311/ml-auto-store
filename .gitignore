@@ -185,3 +185,5 @@ dataset/labels.cache
 runs/
 
 rotation_network/model_state_dict.pth
+
+barcode_decoder/dataset
