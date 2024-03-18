@@ -24,7 +24,7 @@ class BarcodeDecoderNeuralNetwork(nn.Module):
     def forward(self, x):
         x = self.features(x)
         x = self.flatten(x, start_dim=1)
-        x = self.classification(x)
+        x = self.classifier(x)
         x = x.view(-1, 13, 10)
 
         return x

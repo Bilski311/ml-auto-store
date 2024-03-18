@@ -1,3 +1,4 @@
+import torch
 import numpy as np
 from torchvision import transforms
 def transform_image(image):
@@ -10,15 +11,8 @@ def transform_image(image):
     return torch_transforms(image)
 
 
-def transform_barcode_to_one_hot(barcode):
+def transform_target_barcode(barcode):
     barcode = str(barcode)
-    digits = [int(digit) for digit in barcode]
-    one_hot_digits = [digit_to_one_hot(digit) for digit in digits]
-
-    return one_hot_digits
-
-def digit_to_one_hot(digit):
-    zeros = np.zeros(10)
-    zeros[digit] = 1
-
-    return zeros
+    if len(barcode) != 13:
+        raise ValueError('Wrong length of barcode')
+    return torch.tensor([int(digit) for digit in barcode])
