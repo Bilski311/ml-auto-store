@@ -25,6 +25,9 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    - name: Set Tenant ID
+      run: echo "TF_VAR_tenant_id=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
+
     - name: Terraform Init
       run: terraform init
       working-directory: ./terraform

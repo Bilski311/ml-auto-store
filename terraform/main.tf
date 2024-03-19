@@ -31,3 +31,21 @@ resource "azurerm_machine_learning_workspace" "ml_auto_store_workspace" {
     type = "SystemAssigned"
   }
 }
+
+resource "azurerm_key_vault" "key_vault" {
+  name                = "autoStoreKv"
+  location            = azurerm_resource_group.ml_auto_store_rg.location
+  resource_group_name = azurerm_resource_group.ml_auto_store_rg.name
+  tenant_id           = var.tenant_id
+  sku_name            = "standard"
+
+  soft_delete_enabled        = true
+  purge_protection_enabled   = false
+}
+
+resource "azurerm_application_insights" "app_insights" {
+  name                = "autoStoreAppInsights"
+  location            = azurerm_resource_group.ml_auto_store_rg.location
+  resource_group_name = azurerm_resource_group.ml_auto_store_rg.name
+  application_type    = "web"
+}
