@@ -17,7 +17,7 @@ resource "azurerm_resource_group" "ml_auto_store_rg" {
 }
 
 resource "azurerm_storage_account" "storage_account" {
-  name                     = "autostore"
+  name                     = "autostore321"
   resource_group_name      = azurerm_resource_group.ml_auto_store_rg.name
   location                 = azurerm_resource_group.ml_auto_store_rg.location
   account_tier             = "Standard"
