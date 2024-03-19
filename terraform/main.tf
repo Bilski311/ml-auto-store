@@ -21,7 +21,7 @@ resource "azurerm_storage_container" "storage_container" {
   container_access_type = "private"
 }
 
-resource "azurerm_machine_learning_workspace" "aml_workspace" {
+resource "azurerm_machine_learning_workspace" "ml_auto_store_workspace" {
   name                    = "ml-auto-store-workspace"
   location                = azurerm_resource_group.ml_auto_store_rg.location
   resource_group_name     = azurerm_resource_group.ml_auto_store_rg.name
