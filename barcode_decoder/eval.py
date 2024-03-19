@@ -8,24 +8,6 @@ from barcode_dataset import BarcodeDataset
 from transforms import transform_image, transform_target_barcode
 from neural_network import BarcodeDecoderNeuralNetwork
 
-def train_loop(dataloader, model, loss_function, optimizer, device):
-    size = len(dataloader.dataset)
-    model.train()
-
-    for batch, (X, y) in enumerate(dataloader):
-        X, y = X.to(device), y.to(device)
-        prediction = model(X)
-        loss = 0.0
-        for i in range(13):  # Loop over each digit position
-            # Compute loss for each digit. Note: y[:, i] selects the targets for the i-th digit.
-            loss += loss_function(prediction[:, i, :], y[:, i])
-        loss.backward()
-        optimizer.step()
-        optimizer.zero_grad()
-        if batch % 10 == 0:
-            loss = loss.item()
-            current = batch * batch_size + len(X)
-            print(f"Batch: {batch + 1} loss: {loss:>7f} [{current:>5d}/{size:>5d}]")
 
 def eval_loop(dataloader, model, loss_function, device):
     model.eval()
@@ -54,8 +36,8 @@ def eval_loop(dataloader, model, loss_function, device):
     print(f"Test Error: \n Accuracy: {(100 * accuracy):>0.1f}%, Avg loss: {test_loss:>8f} \n")
 
 
-batch_size = 64
-number_of_epochs = 10
+batch_size = 4
+number_of_epochs = 5
 learning_rate = 1e-3
 
 if __name__ == '__main__':
@@ -85,15 +67,9 @@ if __name__ == '__main__':
     train_dataloader = DataLoader(train_data, batch_size=batch_size)
     test_dataloader = DataLoader(test_data, batch_size=batch_size)
 
-    model = BarcodeDecoderNeuralNetwork().to(device)
+    model = BarcodeDecoderNeuralNetwork().to('mps')
+    model.load_state_dict(torch.load('model_state_dict.pth'))
     loss_function = nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), learning_rate)
 
-    for epoch in range(1, number_of_epochs + 1):
-        print(f'Epoch: {epoch}')
-        train_loop(train_dataloader, model, loss_function, optimizer, device)
-        eval_loop(test_dataloader, model, loss_function, device)
-
-    print('Done!')
-    print("Saving the model...")
-    torch.save(model.state_dict(), 'model_state_dict.pth')
+    eval_loop(test_dataloader, model, loss_function, device)
