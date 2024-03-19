@@ -26,6 +26,8 @@ resource "azurerm_machine_learning_workspace" "ml_auto_store_workspace" {
   location                = azurerm_resource_group.ml_auto_store_rg.location
   resource_group_name     = azurerm_resource_group.ml_auto_store_rg.name
   storage_account_id      = azurerm_storage_account.storage_account.id
+  application_insights_id = azurerm_application_insights.app_insights.id
+  key_vault_id            = azurerm_key_vault.key_vault.id
 
   identity {
     type = "SystemAssigned"
