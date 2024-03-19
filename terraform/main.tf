@@ -11,10 +11,10 @@ terraform {
   }
 }
 
-#resource "azurerm_resource_group" "ml_auto_store_rg" {
-#  name     = "ml-auto-store-rg"
-#  location = "polandcentral"
-#}
+resource "azurerm_resource_group" "ml_auto_store_rg" {
+  name     = "ml-auto-store-rg"
+  location = "polandcentral"
+}
 #
 #resource "azurerm_storage_account" "storage_account" {
 #  name                     = "autostore"
