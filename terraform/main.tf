@@ -40,9 +40,6 @@ resource "azurerm_key_vault" "key_vault" {
   resource_group_name = azurerm_resource_group.ml_auto_store_rg.name
   tenant_id           = var.tenant_id
   sku_name            = "standard"
-
-  soft_delete_enabled        = true
-  purge_protection_enabled   = false
 }
 
 resource "azurerm_application_insights" "app_insights" {
