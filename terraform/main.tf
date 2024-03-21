@@ -51,9 +51,17 @@ resource "azurerm_key_vault" "key_vault" {
   sku_name            = "standard"
 }
 
+resource "azurerm_log_analytics_workspace" "example" {
+  name                = "autoStoreAnalyticsWorkspace"
+  location            = azurerm_resource_group.ml_auto_store_rg.location
+  resource_group_name = azurerm_resource_group.ml_auto_store_rg.name
+  sku                 = "PerGB2018"
+}
+
 resource "azurerm_application_insights" "app_insights" {
   name                = "autoStoreAppInsights"
   location            = azurerm_resource_group.ml_auto_store_rg.location
   resource_group_name = azurerm_resource_group.ml_auto_store_rg.name
+  workspace_id        = azurerm_log_analytics_workspace.example.id
   application_type    = "web"
 }
