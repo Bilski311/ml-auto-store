@@ -62,6 +62,6 @@ resource "azurerm_application_insights" "app_insights" {
   name                = "autoStoreAppInsights"
   location            = azurerm_resource_group.ml_auto_store_rg.location
   resource_group_name = azurerm_resource_group.ml_auto_store_rg.name
-  workspace_id        = azurerm_log_analytics_workspace.example.id
+  workspace_id        = azurerm_log_analytics_workspace.log_analytics_workspace.id
   application_type    = "web"
 }
