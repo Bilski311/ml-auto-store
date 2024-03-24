@@ -53,6 +53,8 @@ resource "azurerm_machine_learning_workspace" "ml_auto_store_workspace" {
   application_insights_id = azurerm_application_insights.app_insights.id
   key_vault_id            = azurerm_key_vault.key_vault.id
 
+  public_network_access_enabled = true
+
   identity {
     type = "SystemAssigned"
   }
@@ -86,7 +88,6 @@ resource "azurerm_machine_learning_compute_instance" "ml_auto_store_compute" {
   location                      = azurerm_resource_group.ml_auto_store_rg.location
   machine_learning_workspace_id = azurerm_machine_learning_workspace.ml_auto_store_workspace.id
   virtual_machine_size          = "Standard_E4s_v3"
-  subnet_resource_id = azurerm_subnet.ml_auto_store_subnet.id
 
   identity {
     type = "SystemAssigned"
