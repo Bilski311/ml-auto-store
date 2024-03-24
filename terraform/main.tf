@@ -30,6 +30,21 @@ resource "azurerm_storage_container" "storage_container" {
   container_access_type = "private"
 }
 
+resource "azurerm_virtual_network" "ml_auto_store_vnet" {
+  name                = "ml-auto-store-vnet"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.ml_auto_store_rg.location
+  resource_group_name = azurerm_resource_group.ml_auto_store_rg.name
+}
+
+resource "azurerm_subnet" "ml_auto_store_subnet" {
+  name                 = "ml-auto-store-subnet"
+  resource_group_name  = azurerm_resource_group.ml_auto_store_rg.name
+  virtual_network_name = azurerm_virtual_network.ml_auto_store_vnet.name
+  address_prefixes     = ["10.0.0.0/24"]
+  service_endpoints    = ["Microsoft.Storage", "Microsoft.ContainerRegistry"]
+}
+
 resource "azurerm_machine_learning_workspace" "ml_auto_store_workspace" {
   name                    = "ml-auto-store-workspace"
   location                = azurerm_resource_group.ml_auto_store_rg.location
@@ -66,13 +81,13 @@ resource "azurerm_application_insights" "app_insights" {
   application_type    = "web"
 }
 
-resource "azurerm_machine_learning_compute_instance" "ml_auto_store_compute" {
-  name                          = "ml-auto-store-compute"
-  location                      = azurerm_resource_group.ml_auto_store_rg.location
-  machine_learning_workspace_id = azurerm_machine_learning_workspace.ml_auto_store_workspace.id
-  virtual_machine_size          = "Standard_E4s_v3"
-
-  identity {
-    type = "SystemAssigned"
-  }
-}
+#resource "azurerm_machine_learning_compute_instance" "ml_auto_store_compute" {
+#  name                          = "ml-auto-store-compute"
+#  location                      = azurerm_resource_group.ml_auto_store_rg.location
+#  machine_learning_workspace_id = azurerm_machine_learning_workspace.ml_auto_store_workspace.id
+#  virtual_machine_size          = "Standard_E4s_v3"
+#
+#  identity {
+#    type = "SystemAssigned"
+#  }
+#}
