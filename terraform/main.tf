@@ -65,3 +65,15 @@ resource "azurerm_application_insights" "app_insights" {
   workspace_id        = azurerm_log_analytics_workspace.log_analytics_workspace.id
   application_type    = "web"
 }
+
+resource "azurerm_machine_learning_compute_instance" "ml_auto_store_compute" {
+  name                          = "ml-auto-store-compute"
+  location                      = azurerm_resource_group.ml_auto_store_rg.location
+  resource_group_name           = azurerm_resource_group.ml_auto_store_rg.name
+  machine_learning_workspace_id = azurerm_machine_learning_workspace.ml_auto_store_workspace.id
+  virtual_machine_size          = "Standard_E4s_v3"
+
+  identity {
+    type = "SystemAssigned"
+  }
+}

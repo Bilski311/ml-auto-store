@@ -192,3 +192,4 @@ barcode_decoder/dataset
 .terraform*
 
 config.json
+config.py
