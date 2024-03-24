@@ -190,3 +190,5 @@ barcode_decoder/dataset
 *.pth
 .terraform/*
 .terraform*
+
+config.json
