@@ -81,13 +81,14 @@ resource "azurerm_application_insights" "app_insights" {
   application_type    = "web"
 }
 
-#resource "azurerm_machine_learning_compute_instance" "ml_auto_store_compute" {
-#  name                          = "ml-auto-store-compute"
-#  location                      = azurerm_resource_group.ml_auto_store_rg.location
-#  machine_learning_workspace_id = azurerm_machine_learning_workspace.ml_auto_store_workspace.id
-#  virtual_machine_size          = "Standard_E4s_v3"
-#
-#  identity {
-#    type = "SystemAssigned"
-#  }
-#}
+resource "azurerm_machine_learning_compute_instance" "ml_auto_store_compute" {
+  name                          = "ml-auto-store-compute"
+  location                      = azurerm_resource_group.ml_auto_store_rg.location
+  machine_learning_workspace_id = azurerm_machine_learning_workspace.ml_auto_store_workspace.id
+  virtual_machine_size          = "Standard_E4s_v3"
+  subnet_resource_id = azurerm_subnet.ml_auto_store_subnet.id
+
+  identity {
+    type = "SystemAssigned"
+  }
+}
