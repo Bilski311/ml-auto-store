@@ -79,3 +79,9 @@ resource "azurerm_machine_learning_compute_instance" "ml_auto_store_compute" {
     type = "SystemAssigned"
   }
 }
+
+resource "azurerm_role_assignment" "compute_contributor_role" {
+  scope                = azurerm_machine_learning_workspace.ml_auto_store_workspace.id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_machine_learning_compute_instance.ml_auto_store_compute.identity[0].principal_id
+}
