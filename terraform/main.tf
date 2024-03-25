@@ -74,14 +74,12 @@ resource "azurerm_machine_learning_compute_instance" "ml_auto_store_compute" {
   location                      = azurerm_resource_group.ml_auto_store_rg.location
   machine_learning_workspace_id = azurerm_machine_learning_workspace.ml_auto_store_workspace.id
   virtual_machine_size          = "Standard_E4s_v3"
+  assign_to_user {
+    object_id = "c55a9e22-676b-4f44-93cb-5cc5ce37f887"
+    tenant_id = "0157cdfe-a01c-4008-8869-3be2b5b67158"
+  }
 
   identity {
     type = "SystemAssigned"
   }
-}
-
-resource "azurerm_role_assignment" "compute_contributor_role" {
-  scope                = azurerm_machine_learning_workspace.ml_auto_store_workspace.id
-  role_definition_name = "Contributor"
-  principal_id         = azurerm_machine_learning_compute_instance.ml_auto_store_compute.identity[0].principal_id
 }
