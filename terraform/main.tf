@@ -31,20 +31,20 @@ resource "azurerm_storage_container" "storage_container" {
 }
 
 
-#resource "azurerm_machine_learning_workspace" "ml_auto_store_workspace" {
-#  name                    = "ml-auto-store-workspace"
-#  location                = azurerm_resource_group.ml_auto_store_rg.location
-#  resource_group_name     = azurerm_resource_group.ml_auto_store_rg.name
-#  storage_account_id      = azurerm_storage_account.storage_account.id
-#  application_insights_id = azurerm_application_insights.app_insights.id
-#  key_vault_id            = azurerm_key_vault.key_vault.id
-#
-#  public_network_access_enabled = true
-#
-#  identity {
-#    type = "SystemAssigned"
-#  }
-#}
+resource "azurerm_machine_learning_workspace" "ml_auto_store_workspace" {
+  name                    = "ml-auto-store-workspace"
+  location                = azurerm_resource_group.ml_auto_store_rg.location
+  resource_group_name     = azurerm_resource_group.ml_auto_store_rg.name
+  storage_account_id      = azurerm_storage_account.storage_account.id
+  application_insights_id = azurerm_application_insights.app_insights.id
+  key_vault_id            = azurerm_key_vault.key_vault.id
+
+  public_network_access_enabled = true
+
+  identity {
+    type = "SystemAssigned"
+  }
+}
 
 resource "azurerm_key_vault" "key_vault" {
   name                = "autoStoreKv"
